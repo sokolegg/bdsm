@@ -195,7 +195,7 @@ class BDSMPipeline(StableDiffusionPipeline):
                 image_embeds = torch.cat([negative_image_embeds, image_embeds])
 
         # 4. Prepare timesteps
-        timesteps, num_inference_steps = retrieve_timesteps(self.scheduler, num_inference_steps, device, timesteps)
+        timesteps, num_inference_steps = retrieve_timesteps(self.scheduler, num_inference_steps, device, timesteps.cpu())
 
         # 5. Prepare latent variables
         num_channels_latents = self.unet.config.in_channels
