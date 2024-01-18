@@ -195,7 +195,7 @@ class BDSMPipeline(StableDiffusionPipeline):
                 image_embeds = torch.cat([negative_image_embeds, image_embeds])
 
         # 4. Prepare timesteps
-        timesteps, num_inference_steps = retrieve_timesteps(self.scheduler, num_inference_steps, device, timesteps.cpu())
+        timesteps, num_inference_steps = retrieve_timesteps(self.scheduler, num_inference_steps, device, timesteps)
 
         # 5. Prepare latent variables
         num_channels_latents = self.unet.config.in_channels
@@ -271,7 +271,7 @@ class BDSMPipeline(StableDiffusionPipeline):
                                                             guidance_rescale=self.guidance_rescale)
 
                     # for lcm scheduler
-                    retrieve_timesteps(self.scheduler, num_inference_steps, device, timesteps)
+                    retrieve_timesteps(self.scheduler, num_inference_steps, device, timesteps.cpu())
 
                     # compute the previous noisy sample x_t -> x_t-1
                     bdsm_latents = self.scheduler.step(bdsm_noise_pred, t, latents, **extra_step_kwargs,
