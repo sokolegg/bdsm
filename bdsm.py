@@ -271,7 +271,7 @@ class BDSMPipeline(StableDiffusionPipeline):
                                                             guidance_rescale=self.guidance_rescale)
 
                     # for lcm scheduler
-                    retrieve_timesteps(self.scheduler, num_inference_steps, "cpu", timesteps.cpu())
+                    # retrieve_timesteps(self.scheduler, num_inference_steps, "cpu", timesteps.cpu())
 
                     # compute the previous noisy sample x_t -> x_t-1
                     bdsm_latents = self.scheduler.step(bdsm_noise_pred, t, latents, **extra_step_kwargs,
